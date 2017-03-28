@@ -273,7 +273,17 @@ class Slides(ParentedElementProxy):
                 return idx
         raise ValueError('%s is not in slide collection' % slide)
 
+    def delete_slide(self, prs, index):
+        """
+        Solution provided by blaze33 in https://github.com/scanny/python-pptx/issues/68
+        for deleting slides in the presentation
+        """
 
+        xml_slides = prs.slides._sldIdLst  # pylint: disable=W0212
+        slides = list(xml_slides)
+        xml_slides.remove(slides[index])
+        
+        
 class SlideLayout(_BaseSlide):
     """
     Slide layout object. Provides access to placeholders, regular shapes, and
